@@ -49,3 +49,5 @@ def update_task(body:TaskSchema,task_id:int,db=Depends(get_db)):
 @task_routes.delete("/delete_task/{task_id}",status_code=status.HTTP_204_NO_CONTENT)
 def delete_task(task_id:int,db=Depends(get_db)):
     return controller.delete_task(task_id,db)
+
+
