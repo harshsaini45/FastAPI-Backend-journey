@@ -3,7 +3,8 @@ from src.utils.db import get_db
 from src.user.dtos import UserSchema,UserResponseSchema,LoginSchema
 from sqlalchemy.orm import Session
 from src.user import controller
-
+from src.user.models import UserModel
+from src.utils.helpers import is_authenticated
 
 user_routes = APIRouter(prefix="/user")
 
