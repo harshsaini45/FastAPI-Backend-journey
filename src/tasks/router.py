@@ -28,16 +28,17 @@ task_routes=APIRouter(prefix="/tasks")
 # Request body ko TaskSchema ke according validate karta hai.
 # Validation ke baad validated body controller ko pass hoti hai.
 def create_task(body:TaskSchema, db = Depends(get_db),user:UserModel = Depends(is_authenticated)):
+    print(user.id)
     
 # Controller ko call
 # Router khud actual task-creation logic nahi karta.
 # Ye request ko controller ke create_task() function ko forward karta hai.
 # Controller jo result dega, router wahi response me return karega.
-    return controller.create_task(body,db)
+    return controller.create_task(body,db,user)
 
 @task_routes.get("/all_tasks",status_code=status.HTTP_200_OK)
 def get_all_tasks(db=Depends(get_db),user:UserModel = Depends(is_authenticated)):
-    return controller.get_tasks(db)
+    return controller.get_tasks(db,user)
 
 @task_routes.get("/one_task/{task_id}",response_model=TaskResponseSchema,status_code=status.HTTP_200_OK)
 def get_one_task(task_id:int,db=Depends(get_db),user:UserModel = Depends(is_authenticated)):
@@ -46,10 +47,10 @@ def get_one_task(task_id:int,db=Depends(get_db),user:UserModel = Depends(is_auth
 
 @task_routes.put("/update_task/{task_id}",response_model=TaskResponseSchema,status_code=status.HTTP_201_CREATED)
 def update_task(body:TaskSchema,task_id:int,db=Depends(get_db),user:UserModel = Depends(is_authenticated)):
-    return controller.update_task(body,task_id,db)
+    return controller.update_task(body,task_id,db,user)
 
 @task_routes.delete("/delete_task/{task_id}",status_code=status.HTTP_204_NO_CONTENT)
 def delete_task(task_id:int,db=Depends(get_db),user:UserModel = Depends(is_authenticated)):
-    return controller.delete_task(task_id,db)
+    return controller.delete_task(task_id,db,user)
 
 
