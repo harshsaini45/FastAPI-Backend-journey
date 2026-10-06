@@ -4,6 +4,7 @@ from src.utils.settings import settings
 from sqlalchemy.orm import Session
 from src.user.models import UserModel
 from jwt.exceptions import InvalidTokenError
+
 import jwt
 
 
